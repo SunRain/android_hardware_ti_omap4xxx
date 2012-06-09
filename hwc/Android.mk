@@ -4,10 +4,6 @@ LOCAL_PATH := $(call my-dir)
 # HAL module implementation, not prelinked and stored in
 # hw/<HWCOMPOSE_HARDWARE_MODULE_ID>.<ro.product.board>.so
 include $(CLEAR_VARS)
-LOCAL_C_INCLUDES += \
-         external/kernel-headers/original \
-         external/bltsville/bltsville/include 
-         
 LOCAL_PRELINK_MODULE := false
 LOCAL_ARM_MODE := arm
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/../vendor/lib/hw

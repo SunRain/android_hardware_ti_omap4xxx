@@ -40,8 +40,7 @@
 #include <edid_parser.h>
 #endif
 
-//#include <linux/bltsville.h>
-#include "bltsville/bltsville/include/bltsville.h"
+#include <linux/bltsville.h>
 
 #define MAX_HWC_LAYERS 32
 
