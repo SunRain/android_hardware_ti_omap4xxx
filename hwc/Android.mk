@@ -15,7 +15,10 @@ LOCAL_MODULE_TAGS := optional
 
 LOCAL_MODULE := hwcomposer.omap4
 LOCAL_CFLAGS := -DLOG_TAG=\"ti_hwc\"
-LOCAL_C_INCLUDES += external/libpng external/zlib
+LOCAL_C_INCLUDES +=  \
+        external/libpng \
+        external/zlib \
+        external/kernel-headers/original
 
 ifdef OMAP_ENHANCEMENT_S3D
 LOCAL_C_INCLUDES += \
