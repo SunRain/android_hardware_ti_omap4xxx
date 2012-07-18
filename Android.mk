@@ -3,7 +3,7 @@ ifeq ($(findstring omap, $(TARGET_BOARD_PLATFORM)),omap)
 
 LOCAL_PATH:= $(call my-dir)
 HARDWARE_TI_OMAP4_BASE:= $(LOCAL_PATH)
-OMAP4_DEBUG_MEMLEAK:= false
+OMAP4_DEBUG_MEMLEAK:= true
 
 ifeq ($(OMAP4_DEBUG_MEMLEAK),true)
 
