@@ -20,5 +20,5 @@ LOCAL_C_INCLUDES += \
       external/zlib \
       hardware/ti/omap4xxx/kernel-headers
 # LOG_NDEBUG=0 means verbose logging enabled
-# LOCAL_CFLAGS += -DLOG_NDEBUG=0
+ LOCAL_CFLAGS += -DLOG_NDEBUG=0
 include $(BUILD_SHARED_LIBRARY)
