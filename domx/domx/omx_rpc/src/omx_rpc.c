@@ -86,6 +86,8 @@
 
 
 
+#define DOMX_DEBUG DOMX_ERROR
+
 void *RPC_CallbackThread(void *data);
 
 
@@ -131,7 +133,7 @@ RPC_OMX_ERRORTYPE RPC_InstanceInit(OMX_STRING cComponentName,
 		pRPCCtx->fd_omx = open("/dev/rpmsg-omx1", O_RDWR);
 		if(pRPCCtx->fd_omx >= 0 || errno != ENOENT || nAttempts == 15)
 			break;
-		DOMX_DEBUG("errno from open= %d, REATTEMPTING OPEN!!!!",errno);
+		DOMX_DEBUG("errno from open= %d, Attempts= %d  REATTEMPTING OPEN!!!!",errno, nAttempts);
 		nAttempts++;
 		usleep(1000000);
 	}
