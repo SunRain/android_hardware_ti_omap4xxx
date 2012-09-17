@@ -82,7 +82,6 @@ TIMM_OSAL_ERRORTYPE TIMM_OSAL_Init(void)
 }
 
 
-
 /* ========================================================================== */
 /**
 * @fn TIMM_OSAL_Init function de-initilize the osal.

@@ -86,7 +86,7 @@
 
 
 
-#define DOMX_DEBUG DOMX_ERROR
+//#define DOMX_DEBUG DOMX_ERROR
 
 void *RPC_CallbackThread(void *data);
 
