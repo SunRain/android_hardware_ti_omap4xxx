@@ -28,6 +28,7 @@
 #include <ui/GraphicBufferMapper.h>
 #include "NV12_resize.h"
 
+
 namespace android {
 
 const int AppCallbackNotifier::NOTIFIER_TIMEOUT = -1;

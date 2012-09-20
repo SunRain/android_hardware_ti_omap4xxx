@@ -59,6 +59,7 @@
 #define HAL_PIXEL_FORMAT_TI_NV12_PADDED 0x101
 #define MAX_TILER_SLOT (16 << 20)
 
+
 struct ext_transform_t {
     __u8 rotation : 3;          /* 90-degree clockwise rotations */
     __u8 hflip    : 1;          /* flip l-r (after rotation) */
