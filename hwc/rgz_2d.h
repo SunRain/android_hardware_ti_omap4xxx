@@ -16,7 +16,7 @@
 #ifndef __RGZ_2D__
 #define __RGZ_2D__
 
-#include "include/bltsville.h"
+#include <bltsville.h>
 
 #define RGZ_MAXLAYERS 12
 /*

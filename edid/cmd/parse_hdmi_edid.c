@@ -21,7 +21,7 @@
 #define LOG_TAG "EDID"
 #include <utils/Log.h>
 
-#include <inc/edid_parser.h>
+#include <edid_parser.h>
 
 static const char kHdmiEdidPathName[] = "/sys/devices/platform/omapdss/display1/edid";
 

@@ -19,7 +19,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-#include <inc/edid_parser.h>
+#include <edid_parser.h>
 #include "edid_parser_priv.h"
 
 const struct svd_info_t svd_table[] =

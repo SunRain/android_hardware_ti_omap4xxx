@@ -2,6 +2,9 @@ LOCAL_PATH:= $(call my-dir)
 
 include $(CLEAR_VARS)
 
+LOCAL_C_INCLUDES += \
+    hardware/ti/omap4xxx/kernel-headers
+    
 LOCAL_SRC_FILES := \
     lib/edid_parser.c
 
@@ -13,6 +16,9 @@ include $(BUILD_SHARED_LIBRARY)
 # ====================
 include $(CLEAR_VARS)
 
+LOCAL_C_INCLUDES += \
+    hardware/ti/omap4xxx/kernel-headers
+    
 LOCAL_SRC_FILES:= \
     cmd/parse_hdmi_edid.c
 

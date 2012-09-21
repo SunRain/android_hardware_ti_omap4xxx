@@ -745,9 +745,9 @@ void AppCallbackNotifier::copyAndSendPreviewFrame(CameraFrame* frame, int32_t ms
 
         dest = (void*) mPreviewBufs[mPreviewBufCount];
 
-        CAMHAL_LOGVB("%d:copy2Dto1D(%p, %p, %d, %d, %d, %d, %d,%s)",
+       /* CAMHAL_LOGVB("%d:copy2Dto1D(%p, %p, %d, %d, %d, %d, %d,%s)",
                      __LINE__,
-                     /* buf,*/
+                      buf,
                       frame->mBuffer,
                       frame->mWidth,
                       frame->mHeight,
@@ -755,7 +755,7 @@ void AppCallbackNotifier::copyAndSendPreviewFrame(CameraFrame* frame, int32_t ms
                       2,
                       frame->mLength,
                       mPreviewPixelFormat);
-
+        */
         if ( NULL != dest ) {
             // data sync frames don't need conversion
             if (CameraFrame::FRAME_DATA_SYNC == frame->mFrameType) {

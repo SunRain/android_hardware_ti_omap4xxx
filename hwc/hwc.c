@@ -35,10 +35,10 @@
 #include <hardware_legacy/uevent.h>
 #include <png.h>
 
-#include "include/S3DFormat.h"
-#include "../edid/inc/edid_parser.h"
+#include <S3DFormat.h>
+#include <edid_parser.h>
 
-#include "include/bltsville.h"
+#include <bltsville.h>
 
 #define MAX_HWC_LAYERS 32
 
@@ -53,7 +53,7 @@
 #define HEIGHT(rect) ((rect).bottom - (rect).top)
 
 #include <video/dsscomp.h>
-#include "include/omap_hwc.h"
+#include <omap_hwc.h>
 
 #include "hal_public.h"
 #include "rgz_2d.h"
