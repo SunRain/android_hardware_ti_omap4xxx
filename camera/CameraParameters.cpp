@@ -163,9 +163,11 @@ const char* CameraProperties::Properties::get(const char * prop)
 
 void CameraProperties::Properties::dump()
 {
+    CAMHAL_LOGDB("============= dump CameraProperties ============\n");
+    
     for (size_t i = 0; i < mProperties->size(); i++)
     {
-        CAMHAL_LOGDB("mod %s = %s\n",
+        CAMHAL_LOGDB("Property %s = %s\n",
                         mProperties->keyAt(i).string(),
                         mProperties->valueAt(i).string());
     }
