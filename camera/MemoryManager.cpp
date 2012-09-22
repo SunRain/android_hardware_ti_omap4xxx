@@ -16,7 +16,7 @@
 
 
 
-#define LOG_TAG "CameraHAL"
+#define LOG_TAG "CameraHAL_MemoryManager"
 
 
 #include "CameraHal.h"

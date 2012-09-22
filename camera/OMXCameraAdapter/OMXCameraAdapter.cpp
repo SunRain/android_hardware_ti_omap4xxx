@@ -42,7 +42,7 @@ namespace android {
 
 #undef LOG_TAG
 ///Maintain a separate tag for OMXCameraAdapter logs to isolate issues OMX specific
-#define LOG_TAG "CameraHAL"
+#define LOG_TAG "CameraHAL_OMXCA"
 
 //frames skipped before recalculating the framerate
 #define FPS_PERIOD 30

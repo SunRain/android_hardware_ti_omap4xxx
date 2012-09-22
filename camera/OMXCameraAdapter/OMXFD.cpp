@@ -23,7 +23,7 @@
 
 #undef LOG_TAG
 
-#define LOG_TAG "CameraHAL"
+#define LOG_TAG "CameraHAL_OMXFD"
 
 #include "CameraHal.h"
 #include "OMXCameraAdapter.h"

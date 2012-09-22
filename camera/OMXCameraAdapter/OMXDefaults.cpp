@@ -27,7 +27,7 @@
 namespace android {
 
 #undef LOG_TAG
-#define LOG_TAG "CameraHAL"
+#define LOG_TAG "CameraHAL_OMXDefaults"
 
 #define __STRINGIFY(s) __STRING(s)
 
