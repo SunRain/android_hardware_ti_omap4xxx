@@ -493,11 +493,14 @@ int camera_device_open(const hw_module_t* module, const char* name,
 
     android::Mutex::Autolock lock(gCameraHalDeviceLock);
 
+    CAMHAL_LOGI("**************************");
     CAMHAL_LOGI("camera_device open");
 
     if (name != NULL) {
         cameraid = atoi(name);
         num_cameras = gCameraProperties.camerasSupported();
+	ALOGD("Camera Num is %d, cur id is %d", num_cameras, cameraid);
+	
 
         if(cameraid > num_cameras)
         {
@@ -597,9 +600,15 @@ int camera_device_open(const hw_module_t* module, const char* name,
         gCamerasOpen++;
     }
 
+    CAMHAL_LOGI("**************************");
+    CAMHAL_LOGI("camera_device open finish");
+	
     return rv;
 
 fail:
+    CAMHAL_LOGI("**************************");
+    CAMHAL_LOGI("camera_device open fail");
+    
     if(camera_device) {
         free(camera_device);
         camera_device = NULL;

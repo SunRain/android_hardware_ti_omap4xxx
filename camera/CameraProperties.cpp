@@ -31,6 +31,9 @@
 #define CAMERA_INSTANCE     "CameraInstance"
 
 namespace android {
+	
+#undef LOG_TAG
+#define LOG_TAG "CameraHAL_CameraProperties"
 
 // lower entries have higher priority
 static const char* g_camera_adapters[] = {
@@ -106,7 +109,7 @@ status_t CameraProperties::loadProperties()
         ALOGE("returned too many adapaters");
         ret = UNKNOWN_ERROR;
     } else {
-        ALOGE("num_cameras = %d", mCamerasSupported);
+        ALOGD("num_cameras = %d", mCamerasSupported);
 
         for (unsigned int i = 0; i < mCamerasSupported; i++) {
             mCameraProps[i].set(CAMERA_SENSOR_INDEX, i);
