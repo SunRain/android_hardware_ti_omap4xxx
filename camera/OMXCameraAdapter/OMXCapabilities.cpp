@@ -190,7 +190,9 @@ const CapU32 OMXCameraAdapter::mSensorNames [] = {
     { 300, "IMX060" },
     { 301, "OV5650" },
     { 305, "S5K4E1GA"},
-    { 306, "S5K6A1GX03" }
+    { 306, "S5K6A1GX03" },
+    { 350, "OV8820" },
+    { 352, "OV7736" }
     // TODO(XXX): need to account for S3D camera later
 };
 
@@ -271,6 +273,8 @@ status_t OMXCameraAdapter::encodeFramerateCap(OMX_U32 framerateMax,
         return -EINVAL;
     }
 
+    CAMHAL_LOGDB("framerateMax %d, framerateMin %d",framerateMax, framerateMin);
+    
     for ( unsigned int i = 0; i < capCount; i++ ) {
         if ( (framerateMax >= cap[i].num) && (framerateMin <= cap[i].num) ) {
             strncat(buffer, cap[i].param, bufferSize - 1);
@@ -334,7 +338,9 @@ status_t OMXCameraAdapter::encodeVFramerateCap(OMX_TI_CAPTYPE &caps,
     if (minVFR < FPS_MIN) {
         minVFR = FPS_MIN;
     }
-
+    
+    CAMHAL_LOGDB("minVFR = %d, maxVFR = %d, capCount = %d",minVFR, maxVFR, capCount);
+  
     for (unsigned int i = 0; i < capCount; i++) {
         // add cap[i] if it is in range and maxVFR != minVFR
         if ((maxVFR >= cap[i].num1) && (minVFR <= cap[i].num2)) {
@@ -349,6 +355,12 @@ status_t OMXCameraAdapter::encodeVFramerateCap(OMX_TI_CAPTYPE &caps,
             }
         }
     }
+    
+    CAMHAL_LOGDB("default_index = %d, defaultVFR.num2 = %d,defaultVFR.num1 = %d",
+		 default_index, 
+		 cap[default_index].num2, 
+		 cap[default_index].num1);
+  
 
     // if we haven't found any caps in the list to populate
     // just use the min and max
@@ -368,6 +380,8 @@ status_t OMXCameraAdapter::encodeVFramerateCap(OMX_TI_CAPTYPE &caps,
                  minVFR * CameraHal::VFR_SCALE, maxVFR * CameraHal::VFR_SCALE);
     }
 
+    CAMHAL_LOGDB("defaultRange %s", defaultRange);
+    
     LOG_FUNCTION_NAME_EXIT;
 
     return ret;
@@ -1232,6 +1246,7 @@ void OMXCameraAdapter::dumpOMXCapsCAPRESTYPE(OMX_TI_CAPRESTYPE &captype) {
     CAMHAL_LOGDB("       nHeightMin: %d", captype.nHeightMin);
     CAMHAL_LOGDB("       nWidthMax: %d", captype.nWidthMax);
     CAMHAL_LOGDB("       nHeightMax: %d", captype.nHeightMax);
+    CAMHAL_LOGDB("       nMaxResInPixels: %d", captype.nMaxResInPixels);
 }
 
 void OMXCameraAdapter::dumpOMXCaps(OMX_TI_CAPTYPE &caps) {
@@ -1247,10 +1262,71 @@ void OMXCameraAdapter::dumpOMXCaps(OMX_TI_CAPTYPE &caps) {
 //  OMX_COLOR_FORMATTYPE    eImageFormats[100];
     CAMHAL_LOGDA("   tPreviewResRange -> [OMX_TI_CAPRESTYPE]");
     dumpOMXCapsCAPRESTYPE(caps.tPreviewResRange);
+    
+    CAMHAL_LOGDA("   tRotatedPreviewResRange -> [OMX_TI_CAPRESTYPE]");
+    dumpOMXCapsCAPRESTYPE(caps.tRotatedPreviewResRange);
+    
     CAMHAL_LOGDA("   tImageResRange -> [OMX_TI_CAPRESTYPE]");
     dumpOMXCapsCAPRESTYPE(caps.tImageResRange);
+    
     CAMHAL_LOGDA("   tThumbResRange -> [OMX_TI_CAPRESTYPE]");
     dumpOMXCapsCAPRESTYPE(caps.tThumbResRange);
+    
+    CAMHAL_LOGDA("   ulWhiteBalanceCount : %d",caps.ulWhiteBalanceCount);
+    CAMHAL_LOGDA("   ulColorEffectCount : %d",caps.ulColorEffectCount);	
+    CAMHAL_LOGDA("   xMaxWidthZoom : %d",caps.xMaxWidthZoom);
+    CAMHAL_LOGDA("   xMaxHeightZoom : %d",caps.xMaxHeightZoom);
+    CAMHAL_LOGDA("   ulFlickerCount : %d",caps.ulFlickerCount);
+    CAMHAL_LOGDA("   ulExposureModeCount : %d",caps.ulExposureModeCount);
+    CAMHAL_LOGDA("   bLensDistortionCorrectionSupported : %d",caps.bLensDistortionCorrectionSupported);
+    CAMHAL_LOGDA("   xEVCompensationMin : %d",caps.xEVCompensationMin);
+    CAMHAL_LOGDA("   xEVCompensationMax : %d",caps.xEVCompensationMax);
+    CAMHAL_LOGDA("   nSensitivityMax : %d",caps.nSensitivityMax);
+    CAMHAL_LOGDA("   ulFocusModeCount : %d",caps.ulFocusModeCount);
+    CAMHAL_LOGDA("   ulSceneCount : %d",caps.ulSceneCount);
+    CAMHAL_LOGDA("   ulFlashCount : %d",caps.ulFlashCount);
+    CAMHAL_LOGDA("   xFramerateMin : %d",caps.xFramerateMin);
+    CAMHAL_LOGDA("   xFramerateMax : %d",caps.xFramerateMax);
+    CAMHAL_LOGDA("   bContrastSupported : %d",caps.bContrastSupported);
+    CAMHAL_LOGDA("   bBrightnessSupported : %d",caps.bBrightnessSupported);
+    CAMHAL_LOGDA("   bBrightnessSupported : %d",caps.bBrightnessSupported);
+    CAMHAL_LOGDA("   bProcessingLevelSupported : %d",caps.bProcessingLevelSupported);
+    CAMHAL_LOGDA("   bQFactorSupported : %d",caps.bQFactorSupported);
+    CAMHAL_LOGDA("   ulPrvVarFPSModesCount : %d",caps.ulPrvVarFPSModesCount);
+    CAMHAL_LOGDA("   ulCapVarFPSModesCount : %d",caps.ulCapVarFPSModesCount);
+    CAMHAL_LOGDA("   ulAutoConvModesCount : %d",caps.ulAutoConvModesCount);
+    CAMHAL_LOGDA("   ulBracketingModesCount : %d",caps.ulBracketingModesCount);
+    CAMHAL_LOGDA("   bGbceSupported : %d",caps.bGbceSupported);
+    CAMHAL_LOGDA("   ulImageCodingFormatCount : %d",caps.ulImageCodingFormatCount);
+    CAMHAL_LOGDA("   uSenNativeResWidths : %d",caps.uSenNativeResWidth);
+    CAMHAL_LOGDA("   uSenNativeResHeight : %d",caps.uSenNativeResHeight);
+    CAMHAL_LOGDA("   ulAlgoAreasFocusCount : %d",caps.ulAlgoAreasFocusCount);
+    CAMHAL_LOGDA("   ulAlgoAreasExposureCount : %d",caps.ulAlgoAreasExposureCount);
+    CAMHAL_LOGDA("   bAELockSupported : %d",caps.bAELockSupported);
+    CAMHAL_LOGDA("   bAWBLockSupported : %d",caps.bAWBLockSupported);
+    CAMHAL_LOGDA("   bAFLockSupported : %d",caps.bAFLockSupported);
+    CAMHAL_LOGDA("   nFocalLength : %d",caps.nFocalLength);
+    CAMHAL_LOGDA("   ulPrvFrameLayoutCount : %d",caps.ulPrvFrameLayoutCount);
+    CAMHAL_LOGDA("   ulCapFrameLayoutCount : %d",caps.ulCapFrameLayoutCount);
+    CAMHAL_LOGDA("   bVideoNoiseFilterSupported : %d",caps.bVideoNoiseFilterSupported);
+    CAMHAL_LOGDA("   bVideoStabilizationSupported : %d",caps.bVideoStabilizationSupported);
+    CAMHAL_LOGDA("   bStillCapDuringVideoSupported : %d",caps.bStillCapDuringVideoSupported);
+    CAMHAL_LOGDA("   bMechanicalMisalignmentSupported : %d",caps.bMechanicalMisalignmentSupported);
+    CAMHAL_LOGDA("   bFacePrioritySupported : %d",caps.bFacePrioritySupported);
+    CAMHAL_LOGDA("   bRegionPrioritySupported : %d",caps.bRegionPrioritySupported);
+    CAMHAL_LOGDA("   bGlbceSupported : %d",caps.bGlbceSupported);
+    CAMHAL_LOGDA("   nManualConvMin : %d",caps.nManualConvMin);
+    CAMHAL_LOGDA("   nManualConvMax : %d",caps.nManualConvMax);
+    CAMHAL_LOGDA("   nManualExpMin : %d",caps.nManualExpMin);
+    CAMHAL_LOGDA("   nManualExpMax : %d",caps.nManualExpMax);
+    CAMHAL_LOGDA("   nBrightnessMin : %d",caps.nBrightnessMin);
+    CAMHAL_LOGDA("   nBrightnessMax : %d",caps.nBrightnessMax);
+    CAMHAL_LOGDA("   nContrastMin : %d",caps.nContrastMin);
+    CAMHAL_LOGDA("   nContrastMax : %d",caps.nContrastMax);
+    CAMHAL_LOGDA("   nSharpnessMins : %d",caps.nSharpnessMin);
+    CAMHAL_LOGDA("   nSharpnessMax : %d",caps.nSharpnessMax);
+    CAMHAL_LOGDA("   nSaturationMin : %d",caps.nSaturationMin);
+    CAMHAL_LOGDA("   nSaturationMax : %d",caps.nSaturationMax);
 #if 0
 	OMX_U16                 ulWhiteBalanceCount;    // supported whitebalance mode count
 	OMX_WHITEBALCONTROLTYPE eWhiteBalanceModes[100];
